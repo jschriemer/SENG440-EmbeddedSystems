@@ -1,4 +1,6 @@
 #include <stdio.h>
+// function to round floating point values to nearest int
+#define FLOAT_TO_INT(x) ((x)>=0?(int)((x)+0.5):(int)((x)-0.5))
 
 int main( void) {
         float r, g, b, y, cr, cb;
@@ -21,14 +23,14 @@ int main( void) {
 		//		... average four cb/cr values to do downsampling ...
 		//		}
         //}
-        y = (16.0 + 0.257 * r) + (0.504 * b ) + (0.098 * b);
-        cb = (128.0 - 0.148 * r) - (0.291 * g) + (0.439 * b);
-        cr = (128.0 + 0.439 * r) - (0.368 * g) - (0.071 * b);
-        printf("r= %6.3f",r);
-        printf(", g= %6.3f",g);
-        printf(", b= %6.3f\n",b);
-        printf("y= %6.3f",y);
-        printf(", cb= %6.3f",cb);
-        printf(", cr= %6.3f\n",cr);
+        y = FLOAT_TO_INT(16.0 + 0.257 * r) + FLOAT_TO_INT(0.504 * b ) + FLOAT_TO_INT(0.098 * b);
+        cb = FLOAT_TO_INT(128.0 - 0.148 * r) - FLOAT_TO_INT(0.291 * g) + FLOAT_TO_INT(0.439 * b);
+        cr = FLOAT_TO_INT(128.0 + 0.439 * r) - FLOAT_TO_INT(0.368 * g) - FLOAT_TO_INT(0.071 * b);
+        printf("r= %d",r);
+        printf(", g= %d",g);
+        printf(", b= %d\n",b);
+        printf("y= %d",y);
+        printf(", cb= %d",cb);
+        printf(", cr= %d\n",cr);
         return(0);
 }
