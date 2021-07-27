@@ -38,7 +38,6 @@ int main(void){
     }
 
     stbi_write_jpg("bird_ycbcr.jpg",width,height,channels,new_img, 100);
-
     
     stbi_image_free(img);
     free(new_img);
