@@ -6,11 +6,13 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image/stb_image_write.h"
 
+#define FLOAT_TO_INT(x) ((x)>=0?(int)((x)+0.5):(int)((x)-0.5))
+
 int main(void){
 
     
     int width, height, channels;        //channels represent rgb and a for opacity
-    unsigned char *img = stbi_load("bird.jpg", &width,&height,&channels, 0);
+    unsigned char *img = stbi_load("test.jpg", &width,&height,&channels, 0);
     if (img == NULL){
         printf("Error, no image found.\n");
         exit(1);
@@ -30,9 +32,9 @@ int main(void){
     //modify pixel values;  
     for (unsigned char *i = img, *ni = new_img; i !=img+img_size; i +=channels, ni +=channels){
         
-        *ni = (uint8_t)(16.0 + 0.257 * (*i)) + (0.504 * (*(i+1)) ) + (0.098 * (*(i+2)));        //Y
-        *(ni+1) = (uint8_t)(128.0 - 0.148 * (*i)) - (0.291 * (*(i+1))) + (0.439 * (*(i+2)));    //Cb
-        *(ni+2) = (uint8_t)(128.0 + 0.439 * (*i)) - (0.368 * (*(i+1))) - (0.071 * (*(i+2)));    //Cr
+        *ni = (uint8_t) FLOAT_TO_INT((16.0 + 0.257 * (*i))) + FLOAT_TO_INT((0.504 * (*(i+1)) )) + FLOAT_TO_INT((0.098 * (*(i+2))));        //Y
+        *(ni+1) = (uint8_t) FLOAT_TO_INT((128.0 - 0.148 * (*i))) - FLOAT_TO_INT((0.291 * (*(i+1)))) + FLOAT_TO_INT((0.439 * (*(i+2))));    //Cb
+        *(ni+2) = (uint8_t) FLOAT_TO_INT((128.0 + 0.439 * (*i))) - FLOAT_TO_INT((0.368 * (*(i+1)))) - FLOAT_TO_INT((0.071 * (*(i+2))));    //Cr
     }
 
     stbi_write_jpg("bird_ycbcr.jpg",width,height,channels,new_img, 100);

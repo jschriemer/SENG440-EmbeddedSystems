@@ -26,11 +26,11 @@ int main( void) {
         y = FLOAT_TO_INT(16.0 + 0.257 * r) + FLOAT_TO_INT(0.504 * b ) + FLOAT_TO_INT(0.098 * b);
         cb = FLOAT_TO_INT(128.0 - 0.148 * r) - FLOAT_TO_INT(0.291 * g) + FLOAT_TO_INT(0.439 * b);
         cr = FLOAT_TO_INT(128.0 + 0.439 * r) - FLOAT_TO_INT(0.368 * g) - FLOAT_TO_INT(0.071 * b);
-        printf("r= %d",r);
-        printf(", g= %d",g);
-        printf(", b= %d\n",b);
-        printf("y= %d",y);
-        printf(", cb= %d",cb);
-        printf(", cr= %d\n",cr);
+        printf("r= %d",(int)r);
+        printf(", g= %d",(int)g);
+        printf(", b= %d\n",(int)b);
+        printf("y= %d",(int)y);
+        printf(", cb= %d",(int)cb);
+        printf(", cr= %d\n",(int)cr);
         return(0);
 }
