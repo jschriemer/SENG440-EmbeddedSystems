@@ -37,8 +37,26 @@ int main(void){
         *(ni+2) = (uint8_t) FLOAT_TO_INT((128.0 + 0.439 * (*i))) - FLOAT_TO_INT((0.368 * (*(i+1)))) - FLOAT_TO_INT((0.071 * (*(i+2))));    //Cr
     }
 
-    stbi_write_jpg("bird_ycbcr.jpg",width,height,channels,new_img, 100);
+
+    stbi_write_jpg("test_ycbcr.jpg",width,height,channels,new_img, 100);
+
+    unsigned char *ycbcr_img = stbi_load("test_ycbcr.jpg", &width,&height,&channels, 0);
+    if (ycbcr_img == NULL){
+        printf("Error, no image found.\n");
+        exit(1);
+    }
+
+    unsigned char *rgb_img = malloc(img_size);
+    //modify pixel values back to rgb;  
+    for (unsigned char *i = ycbcr_img, *ni = rgb_img; i !=ycbcr_img+img_size; i +=channels, ni +=channels){
+        
+        *ni = (uint8_t) FLOAT_TO_INT((1.164 * (*i - 16))) + FLOAT_TO_INT((1.596 * (*(i+2)-128)));                                               //R
+        *(ni+1) = (uint8_t) FLOAT_TO_INT((1.164 * (*i - 16))) - FLOAT_TO_INT((0.813 * (*(i+2)-128))) - FLOAT_TO_INT((0.391 * (*(i+1)-128)));    //G
+        *(ni+2) = (uint8_t) FLOAT_TO_INT((1.164 * (*i - 16))) + FLOAT_TO_INT((2.018 * (*(i+1)-128)));                                           //B
+    }
     
+    stbi_write_jpg("back_to_rgb.jpg",width,height,channels,rgb_img, 100);
+
     stbi_image_free(img);
     free(new_img);
 }
