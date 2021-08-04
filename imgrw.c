@@ -8,11 +8,11 @@
 
 #define FLOAT_TO_INT(x) ((x)>=0?(uint8_t)((x)+0.5):(uint8_t)((x)-0.5))
 
-static float Min(float a, float b) {
+static int Min(int a, int b) {
 	return a <= b ? a : b;
 }
 
-static float Max(float a, float b) {
+static int Max(int a, int b) {
 	return a >= b ? a : b;
 }
 
@@ -60,9 +60,9 @@ int main(void){
     //modify pixel values back to rgb;  
     for (unsigned char *i = ycbcr_img, *ni = rgb_img; i !=ycbcr_img+img_size; i +=channels, ni +=channels){
         
-        *ni = (uint8_t) Max(0.00, Min(255.0, *i + (1.4 * (*(i+2)-128))));                                               //R
-        *(ni+1) =(uint8_t) Max(0.00, Min(255.0, *i - (0.711 * (*(i+2)-128)) - (0.343 * (*(i+1)-128))));                 //G
-        *(ni+2) =(uint8_t) Max(0.00, Min(255.0, *i + (1.765 * (*(i+1)-128))));                                          //B
+        *ni = (uint8_t) Max(0, Min(255, (4194304 * (*i) + (5872026 * (*(i+2)-128))) >>22));                                               //R
+        *(ni+1) =(uint8_t) Max(0, Min(255, (4194304 * (*i) - (2982150 * ((*(i+2)-128))) - (1438646 * (*(i+1)-128))) >>22));                 //G
+        *(ni+2) =(uint8_t) Max(0, Min(255, (4194304 * (*i) + (7402947 * (*(i+1)-128))) >>22));                                          //B
     }
     printf("Converted YCbCr image back to RGB formate. \n");
 
