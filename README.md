@@ -10,13 +10,13 @@ We did not need the full library as it would become too large, so we only use st
 
 To run the code the following files must be the same directory: imgrw.c , test.jpg , and stb_image folder
 
-To run the code you your machine, compile using this command: gcc -std="gnu99" -o imgrw.exe imgrw.c
-and this command to run: ./imgrw.exe
+To run the code on your machine, compile using this command: **gcc -std="gnu99" -o imgrw.exe imgrw.c**
+and this command to run: **./imgrw.exe**
 
-To run the code on the real arm machine, compile using this command:   arm-linux-gcc -static -std="gnu99" -o imgrw.exe imgrw.c
+To run the code on the real arm machine, compile using this command:   **arm-linux-gcc -static -o imgrw.exe imgrw.c**
 Then use lftp and the user you want to login as. Then use "put imgrw.exe" to add the file to arm.
-Once on telnet arm, use "chmod +x imgrw.exe" to change permissions to execute. 
-Then run the code with: ./imgrw.exe
+Once on telnet arm, use **chmod +x imgrw.exe** to change permissions to execute. 
+Then run the code with: **./imgrw.exe**
 
 Username for arm users: user1, user2, user3, user4
 Password for arm users: q6coHjd7P
