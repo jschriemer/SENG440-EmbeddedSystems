@@ -60,13 +60,13 @@ int main(void){
     //modify pixel values back to rgb;  
     for (unsigned char *i = ycbcr_img, *ni = rgb_img; i !=ycbcr_img+img_size; i +=channels, ni +=channels){
         
-        *ni =  Max(0, Min(255, (4194304 * (*i) + (5872026 * (*(i+2)-128))) >>22));                                               //R
-        *(ni+1) = Max(0, Min(255, (4194304 * (*i) - (2982150 * ((*(i+2)-128))) - (1438646 * (*(i+1)-128))) >>22));                 //G
-        *(ni+2) = Max(0, Min(255, (4194304 * (*i) + (7402947 * (*(i+1)-128))) >>22));                                          //B
+        *ni =  Max(0, Min(255, (65536 * (*i) + (91750 * (*(i+2)-128))) >>16));                                               //R
+        *(ni+1) = Max(0, Min(255, (65536 * (*i) - (46596 * ((*(i+2)-128))) - (22479 * (*(i+1)-128))) >>16));                 //G
+        *(ni+2) = Max(0, Min(255, (65536 * (*i) + (115671 * (*(i+1)-128))) >>16));                                          //B
     }
     printf("Converted YCbCr image back to RGB formate. \n");
 
-    stbi_write_jpg("back_to_rgb6.jpg",width,height,channels,rgb_img, 80);
+    stbi_write_jpg("back_to_rgb.jpg",width,height,channels,rgb_img, 80);
 
     printf("Wrote new RGB image to file back_to_rgb.jpg \n");
 
